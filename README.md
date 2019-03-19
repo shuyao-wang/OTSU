@@ -35,3 +35,4 @@ Besides that u should avoid w(k)=1 it will make the deltaB^2 = infinite
 Please give me more advice.
 
 
+![image](https://github.com/tinghsienchin/OTSU/blob/master/2773BFA3-424D-4557-86B8-D7473A3F8465.png)
