@@ -37,5 +37,5 @@ Please give me more advice.
 
 ![image](https://github.com/tinghsienchin/OTSU/blob/master/2773BFA3-424D-4557-86B8-D7473A3F8465.png)
 ![image](https://github.com/tinghsienchin/OTSU/blob/master/5D556D2B-6A5B-4993-852A-A7F25584C529.png)
-![image](https://github.com/tinghsienchin/OTSU/blob/master/2773BFA3-424D-4557-86B8-D7473A3F8465.png)
+![image](https://github.com/tinghsienchin/OTSU/blob/master/D8AB7306-5D71-4D95-9250-CF0CAEF45622.png)
 
