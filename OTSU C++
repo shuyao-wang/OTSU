@@ -1,0 +1,83 @@
+//created 2019/3/17 using QT and opencv
+#include <iostream>
+#include "highgui.h"
+#include "cv.h"
+#include "math.h"
+
+using namespace std;
+using namespace cv;
+
+Mat InputImg;
+Mat OutputImg;//calculate the threshold by myself
+Mat gray;//gray photo
+Mat Outputhist;//calculate the threshold by opencv 
+int N;//the total number of the pixels
+float hranges[2]={0,256};//the range of gray level
+const float*ranges[1]={hranges};
+int channels[1]={0};//gray
+int hsize[1]={256};//the maximum of the gray level 
+float Ut = 0;
+float Uk = 0;
+float w = 0;
+int ik = 0;
+int thres = 0;
+float p[256] = {0};
+float deltaB = 0;
+int main()
+{
+
+    InputImg = imread("C:\\outPic.jpg");
+    cvtColor(InputImg,gray,CV_RGB2GRAY);//transform to grayscale
+    N = InputImg.rows*InputImg.cols;
+    calcHist(&gray,1,channels,Mat(),Outputhist,1,hsize,ranges,true,false);//Outputhis has the pixel number of each gray-level
+    /******u can see the histogram of the gray level********/
+    /*for(int i=0;i<256;i++)
+    {
+        cout<<i<<"="<<Outputhist.at<float>(i)<<endl;
+    }*/
+    //imshow("orignal",InputImg);
+    //Mat histgraph(256,256,CV_8U,Scalar(255));
+    //double max = 0;
+    //double min = 0;
+    //minMaxLoc(Outputhist,&min,&max,NULL,NULL);
+    //double rate = (256/max)*0.9;*/
+    /*for(int i=0;i<256;i++)
+    {
+        float value = Outputhist.at<float>(i);
+        line(histgraph,Point(i,256),Point(i,256-rate*value),Scalar(0));
+    }
+    imshow("now",InputImg);
+    imshow("graph",histgraph);*/
+    
+    
+    for(int i=0;i<256;i++)
+    {
+     p[i] = Outputhist.at<float>(i)/N;
+     Ut = Ut+(i+1)*p[i];
+    }
+    for(int j=0;j<256;j++)
+    {
+        float delta = 0;
+        ik = ik + (j+1);
+        w = w + p[j];
+        Uk = Uk+(j+1)*p[j];
+        delta = pow((Ut*w-Uk),2)/(w*(1-w));
+        if((j!=255)&&(delta>deltaB))
+        {
+                  deltaB = delta;
+                  thres = j;
+        }
+    }
+
+
+    double ret = 0;
+    ret = threshold(gray,OutputImg,0,255,THRESH_OTSU);
+    threshold(gray,Outputhist,thres,255,THRESH_BINARY);
+    imshow("test",InputImg);
+    imshow("test1",Outputhist);
+    imshow("test2",gray);
+    cout<<thres<<endl;
+    cout<<ret<<endl;
+    waitKey();
+    return 0;
+}
